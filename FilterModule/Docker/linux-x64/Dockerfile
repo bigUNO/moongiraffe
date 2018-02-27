@@ -1,11 +1,17 @@
-FROM microsoft/dotnet:2.0.0-runtime-stretch
-
+FROM microsoft/dotnet:2.0-sdk AS build
 WORKDIR /app
 
-RUN dotnet publish FilterModule.csproj
+# copy everything else and build app
+COPY . .
+WORKDIR /app/dotnetapp
+RUN dotnet build
 
-COPY ./FilterModule/bin/Debug/netcoreapp2.0/publish ./
+FROM build AS publish
+WORKDIR /app/dotnetapp
+RUN dotnet publish -c Release -o out
 
-RUN ls
 
-ENTRYPOINT [ "dotnet", "FilterModule.dll" ]
+FROM microsoft/dotnet:2.0-runtime AS runtime
+WORKDIR /app
+COPY --from=publish /app/dotnetapp/out ./
+ENTRYPOINT ["dotnet", "dotnetapp.dll"]
