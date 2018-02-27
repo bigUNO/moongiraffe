@@ -9,3 +9,5 @@ COPY $EXE_DIR/ ./
 CMD ["dotnet", "publish", "FilterModule.csproj"]
 
 CMD ["dotnet", "FilterModule.dll"]
+
+ENTRYPOINT [ "FilterModule.dll" ]
