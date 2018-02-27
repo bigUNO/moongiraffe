@@ -6,5 +6,5 @@ RUN ls -lha
 # copy everything else and build app
 RUN pwd
 RUN ls -lha
-COPY ./ .
+COPY ./../ .
 RUN ls -lha
