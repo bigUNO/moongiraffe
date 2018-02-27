@@ -1,9 +1,7 @@
 FROM microsoft/dotnet:2.0.0-runtime-stretch
 
-ARG EXE_DIR=.
-
 WORKDIR /app
 
-COPY $EXE_DIR/ ./
+COPY ./FilterModule/bin/Debug/netcoreapp2.0/publish ./
 
 ENTRYPOINT [ "dotnet", "FilterModule.dll" ]
