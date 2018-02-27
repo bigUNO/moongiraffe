@@ -6,20 +6,19 @@ RUN ls -lha
 # copy everything else and build app
 RUN pwd
 RUN ls -lha
-COPY / .
+COPY ../../../FilterModule .
 RUN ls -lha
-WORKDIR /app/FilterModule
-RUN dotnet build /app/FilterModule.csproj
+WORKDIR /app
+RUN dotnet build FilterModule.csproj
 
 FROM build AS publish
 RUN pwd
 RUN ls -lha
-WORKDIR /app/FilterModule
-RUN pwd
+WORKDIR /apps
 RUN dotnet publish -c Release -o out
 
 FROM microsoft/dotnet:2.0-runtime AS runtime
 RUN pwd
 RUN ls -lha
-COPY --from=publish /app/FilterModule/out ./
+COPY --from=publish /app/out ./
 ENTRYPOINT ["dotnet", "FilterModule.dll"]
