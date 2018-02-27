@@ -6,6 +6,6 @@ WORKDIR /app
 
 COPY $EXE_DIR/ ./
 
-RUN ["dotnet", "publish", "FilterModule.csproj"]
+CMD ["dotnet", "publish", "FilterModule.csproj"]
 
 CMD ["dotnet", "FilterModule.dll"]
