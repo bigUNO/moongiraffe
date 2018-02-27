@@ -3,15 +3,15 @@ WORKDIR /app
 
 # copy everything else and build app
 COPY . .
-WORKDIR /app/dotnetapp
+WORKDIR /app/FilterModule
 RUN dotnet build
 
 FROM build AS publish
-WORKDIR /app/dotnetapp
+WORKDIR /app/FilterModule
 RUN dotnet publish -c Release -o out
 
 
 FROM microsoft/dotnet:2.0-runtime AS runtime
 WORKDIR /app
-COPY --from=publish /app/dotnetapp/out ./
-ENTRYPOINT ["dotnet", "dotnetapp.dll"]
+COPY --from=publish /app/FilterModule/out ./
+ENTRYPOINT ["dotnet", "FilterModule.dll"]
