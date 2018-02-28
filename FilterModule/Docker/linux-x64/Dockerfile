@@ -1,24 +1,9 @@
-FROM microsoft/dotnet:2.0-sdk AS build
-RUN pwd
+FROM microsoft/dotnet:2.0.0-runtime-stretch
+
+ARG EXE_DIR=.
+
 WORKDIR /app
-RUN ls -lha
 
-# copy everything else and build app
-RUN pwd
-RUN ls -lha
-COPY ../../../FilterModule .
-RUN ls -lha
-WORKDIR /app
-RUN dotnet build FilterModule.csproj
+COPY $EXE_DIR/ ./
 
-FROM build AS publish
-RUN pwd
-RUN ls -lha
-WORKDIR /apps
-RUN dotnet publish -c Release -o out
-
-FROM microsoft/dotnet:2.0-runtime AS runtime
-RUN pwd
-RUN ls -lha
-COPY --from=publish /app/out ./
 ENTRYPOINT ["dotnet", "FilterModule.dll"]
