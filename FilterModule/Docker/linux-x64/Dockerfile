@@ -1,10 +1,9 @@
-FROM microsoft/dotnet:2.0-sdk AS build
-RUN pwd
-WORKDIR /app
-RUN ls -lha
+FROM microsoft/dotnet:2.0.0-runtime-stretch
 
-# copy everything else and build app
-RUN pwd
-RUN ls -lha
-COPY ./../ .
-RUN ls -lha
+ARG EXE_DIR=.
+
+WORKDIR /app
+
+COPY $EXE_DIR/ ./
+
+ENTRYPOINT ["dotnet", "FilterModule.dll"]
