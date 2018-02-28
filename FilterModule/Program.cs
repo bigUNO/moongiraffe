@@ -43,6 +43,7 @@ namespace FilterModule
 
         static void Main(string[] args)
         {
+            /*
             // The Edge runtime gives us the connection string we need -- it is injected as an environment variable
             string connectionString = Environment.GetEnvironmentVariable("EdgeHubConnectionString");
 
@@ -56,6 +57,9 @@ namespace FilterModule
             AssemblyLoadContext.Default.Unloading += (ctx) => cts.Cancel();
             Console.CancelKeyPress += (sender, cpe) => cts.Cancel();
             WhenCancelled(cts.Token).Wait();
+*/
+            // Local testing
+            RecursiveFileProcessor.ProcessDirectory("data");
         }
 
         /// <summary>
