@@ -30,6 +30,11 @@ namespace FilterModule
             public double temperature { get; set; }
             public double pressure { get; set; }
         }
+        class Accelerometer
+        {
+            public float xAxis {get; set;}
+            public float yAxis {get; set;}
+        }
         class Ambient
         {
             public double temperature { get; set; }
